@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from queue import Queue
 '''
     ALX Interview - Lockboxes
 '''
@@ -10,15 +9,15 @@ def canUnlockAll(boxes):
         Returns True if all the boxs can be unlocked
         and False if they can't
     '''
-    q = Queue()
-    q.put(0)
-    unlocked = set([0])
+    keys = [0]
+    opened_boxes = {0}
 
-    while not q.empty():
-        box = q.get()
-        for key in boxes[box]:
-            if key not in unlocked and key < len(boxes):
-                unlocked.add(key)
-                q.put(key)
+    while keys:
+        current_box = keys.pop()
 
-    return len(unlocked) == len(boxes)
+        for key in boxes[current_box]:
+            if key not in opened_boxes and key < len(boxes):
+                opened_boxes.add(key)
+                keys.append(key)
+
+    return len(opened_boxes) == len(boxes)

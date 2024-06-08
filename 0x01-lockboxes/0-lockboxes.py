@@ -14,13 +14,10 @@ def canUnlockAll(boxes):
 
     while keys:
         current_box = keys.pop()
-        print(f"current box ", current_box)
 
         for key in boxes[current_box]:
-            print(f"keys in box", boxes[current_box])
             if key not in opened_boxes and key < len(boxes):
                 opened_boxes.add(key)
                 keys.append(key)
 
     return len(opened_boxes) == len(boxes)
-    

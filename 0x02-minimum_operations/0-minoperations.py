@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """ Module for calculating Minimum Operations """
+
+
 def minOperations(n):
     '''
         Calculate fewest number of operations required
@@ -12,7 +14,7 @@ def minOperations(n):
     while i <= n:
         if n % i == 0:
             factors.append(i)
-            n = n // i 
+            n = n // i
         else:
             i += 1
     # Step two is to add the factors

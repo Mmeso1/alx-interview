@@ -1,6 +1,10 @@
 #!/usr/bin/python3
-# Module for calculating Minimum Operations 
+""" Module for calculating Minimum Operations """
 def minOperations(n):
+    '''
+        Calculate fewest number of operations required
+        to paste n operations.
+    '''
     # Step one is to factorize n
     factors = []
     i = 2

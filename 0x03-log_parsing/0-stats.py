@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 '''Log parsing'''
 
 import sys
@@ -7,7 +6,6 @@ import re
 
 
 def print_stats():
-    '''Print statistics.'''
     print("File size: {}".format(total_size))
     for key, value in sorted(status.items()):
         if value != 0:
@@ -33,5 +31,7 @@ try:
         if line_count % 10 == 0:
             print_stats()
             line_count = 0
-except KeyboardInterrupt:
+except Exception:
+    pass
+finally:
     print_stats()

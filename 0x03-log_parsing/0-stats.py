@@ -32,5 +32,6 @@ try:
             total_size += int(file_size)
         if line_count % 10 == 0:
             print_stats()
+            line_count = 0
 except KeyboardInterrupt:
     print_stats()

@@ -3,6 +3,7 @@
 
 import sys
 
+
 def print_stats():
     print("File size: {:d}".format(total_size))
     for key in sorted(status.keys()):
@@ -37,5 +38,5 @@ try:
                 line_count = 0
 except Exception:
     pass
-finally: 
+finally:
     print_stats()

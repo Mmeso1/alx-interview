@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 '''Log parsing'''
+
 import sys
 import re
+
 
 def print_stats():
     '''Print statistics.'''

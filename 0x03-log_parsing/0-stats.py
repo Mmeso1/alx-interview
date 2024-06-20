@@ -1,44 +1,36 @@
 #!/usr/bin/python3
-"""script that reads stdin line by line and computes metrics"""
 
+'''Log parsing'''
 
 import sys
+import re
 
 
 def print_stats():
-    print('File size: {:d}'.format(sum_file_size))
-    sorted_keys = sorted(status_code.keys())
-    for key in sorted_keys:
-        value = status_code[key]
+    '''Print statistics.'''
+    print("File size: {}".format(total_size))
+    for key, value in sorted(status.items()):
         if value != 0:
-            print('{}: {}'.format(key, value))
+            print("{}: {}".format(key, value))
 
 
-i = 0
-sum_file_size = 0
-status_code = {'200': 0,
-               '301': 0,
-               '400': 0,
-               '401': 0,
-               '403': 0,
-               '404': 0,
-               '405': 0,
-               '500': 0}
+status = {"200": 0, "301": 0, "400": 0, "401": 0,
+        "403": 0, "404": 0, "405": 0, "500": 0}
+total_size = 0
+line_count = 0
+pattern = r"\d{3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[.*\] \"GET /projects/260 HTTP/1.1\" (\d{3}) (\d{1,3})"
 
 try:
     for line in sys.stdin:
-        args = line.split(' ')
-        if len(args) > 2:
-            status_line = args[-2]
-            file_size = args[-1]
-            if status_line in status_code:
-                status_code[status_line] += 1
-            sum_file_size += int(file_size)
-            i += 1
-            if i == 10:
-                print_stats()
-                i = 0
-except Exception:
-    pass
-finally:
+        match = re.match(pattern, line)
+        if match:
+            status_code = match.group(1)
+            file_size = match.group(2)
+            line_count += 1
+            if status_code in status:
+                status[status_code] += 1
+            total_size += int(file_size)
+        if line_count % 10 == 0:
+            print_stats()
+except KeyboardInterrupt:
     print_stats()

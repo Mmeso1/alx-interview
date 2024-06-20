@@ -20,17 +20,17 @@ pattern = r"\d{3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[.*\] \"GET /projects/260 HTTP/1
 
 try:
     for line in sys.stdin:
-        match = re.match(pattern, line)
-        if match:
-            status_code = match.group(1)
-            file_size = match.group(2)
-            line_count += 1
-            if status_code in status:
-                status[status_code] += 1
+        args = line.split(' ')
+        if len(args) > 2:
+            status_line = args[-2]
+            file_size = args[-1]
+            if status_line in status:
+                status[status_line] += 1
             total_size += int(file_size)
-        if line_count % 10 == 0:
-            print_stats()
-            line_count = 0
+            i += 1
+            if i == 10:
+                print_stats()
+                i = 0
 except Exception:
     pass
 finally:

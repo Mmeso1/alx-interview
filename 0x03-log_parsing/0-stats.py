@@ -1,13 +1,14 @@
 #!/usr/bin/python3
-'''Log parsing'''
+"""script that reads stdin line by line and computes metrics"""
 
 import sys
 import re
 
 
 def print_stats():
-    print("File size: {}".format(total_size))
-    for key, value in sorted(status.items()):
+    print("File size: {:d}".format(total_size))
+    for key in sorted(status.keys()):
+        value = status[key]
         if value != 0:
             print("{}: {}".format(key, value))
 
@@ -20,18 +21,16 @@ pattern = r"\d{3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[.*\] \"GET /projects/260 HTTP/1
 
 try:
     for line in sys.stdin:
-        args = line.split(' ')
-        if len(args) > 2:
-            status_line = args[-2]
-            file_size = args[-1]
-            if status_line in status:
-                status[status_line] += 1
+        match = re.match(pattern, line)
+        if match:
+            status_code = match.group(1)
+            file_size = match.group(2)
+            line_count += 1
+            if status_code in status:
+                status[status_code] += 1
             total_size += int(file_size)
-            i += 1
-            if i == 10:
-                print_stats()
-                i = 0
-except Exception:
-    pass
-finally:
+        if line_count % 10 == 0:
+            print_stats()
+            line_count = 0
+except KeyboardInterrupt:
     print_stats()

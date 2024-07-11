@@ -1,9 +1,9 @@
-#!/usr/local/bin/node
+#!/usr/bin/node
 
-const request = require('request');
-const BASE_URI = 'https://swapi-api.alx-tools.com/api';
+const request = require("request");
+const BASE_URI = "https://swapi-api.alx-tools.com/api";
 
-function getCharacters (id) {
+function getCharacters(id) {
   request(
     `${BASE_URI}/films/${id}`,
     { json: true },

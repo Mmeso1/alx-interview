@@ -1,27 +1,32 @@
 #!/usr/bin/node
 const request = require('request');
-const API_URL = 'https://swapi-api.hbtn.io/api';
+const BASE_URI = 'https://swapi-api.alx-tools.com/api';
 
 if (process.argv.length > 2) {
-  request(`${API_URL}/films/${process.argv[2]}/`, (err, _, body) => {
-    if (err) {
-      console.log(err);
-    }
-    const charactersURL = JSON.parse(body).characters;
-    const charactersName = charactersURL.map(
-      (url) =>
-        new Promise((resolve, reject) => {
-          request(url, (promiseErr, __, charactersReqBody) => {
-            if (promiseErr) {
-              reject(promiseErr);
-            }
-            resolve(JSON.parse(charactersReqBody).name);
-          });
-        })
-    );
+  request(
+    `${BASE_URI}/films/${process.argv[2]}`,
+    { json: true },
+    (error, res, body) => {
+      if (error) {
+        console.log(error);
+      }
 
-    Promise.all(charactersName)
-      .then((names) => console.log(names.join('\n')))
-      .catch((allErr) => console.log(allErr));
-  });
+      const charactersUrl = body.characters;
+      const characterNames = charactersUrl.map(
+        (url) =>
+          new Promise((resolve, reject) => {
+            request(url, { json: true }, (err, _, character) => {
+              if (err) {
+                reject(err);
+              }
+              resolve(character.name);
+            });
+          })
+      );
+
+      Promise.all(characterNames)
+        .then((names) => console.log(names.join('\n')))
+        .catch((err) => console.error(err));
+    }
+  );
 }

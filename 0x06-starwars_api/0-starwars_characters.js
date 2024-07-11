@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!/usr/bin/node
 const request = require("request");
 const BASE_URI = "https://swapi-api.alx-tools.com/api";
 

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "axios": "^1.7.2",
+    "request": "^2.88.2",
+    "semistandard": "^17.0.0"
+  }
+}

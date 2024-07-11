@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/local/bin/node
 const request = require("request");
 const BASE_URI = "https://swapi-api.alx-tools.com/api";
 
@@ -6,7 +6,7 @@ if (process.argv.length > 2) {
   request(
     `${BASE_URI}/films/${process.argv[2]}`,
     { json: true },
-    function (error, res, body) {
+    (error, res, body) => {
       if (error) {
         console.log(error);
       }

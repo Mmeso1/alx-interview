@@ -1,6 +1,6 @@
 #!/usr/bin/node
-const request = require("request");
-const BASE_URI = "https://swapi-api.alx-tools.com/api";
+const request = require('request');
+const BASE_URI = 'https://swapi-api.alx-tools.com/api';
 
 if (process.argv.length > 2) {
   request(
@@ -31,7 +31,7 @@ if (process.argv.length > 2) {
       );
 
       Promise.all(characterNames)
-        .then((names) => console.log(names.join("\n")))
+        .then((names) => console.log(names.join('\n')))
         .catch((err) => console.error(err));
     }
   );

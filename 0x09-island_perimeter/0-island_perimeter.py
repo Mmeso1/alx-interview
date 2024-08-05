@@ -2,26 +2,21 @@
 """ ALX Interview - Island perimeter
 """
 
-def island_perimter(grid):
-    """ Calculate the perimeter of an island
+
+def island_perimeter(grid):
+    """ Returns the perimiter of an island
     """
 
-    rows, cols = len(grid), len(grid[0])
-    perimeter = 0
-
-    for row in range(rows):
-        for col in range(cols):
-            if grid[row][col] == 1:  # Land cell
-                # Check UP
-                if row == 0 or grid[row-1][col] == 0:
-                    perimeter += 1
-                # Check DOWN
-                if row == rows-1 or grid[row+1][col] == 0:
-                    perimeter += 1
-                # Check LEFT
-                if col == 0 or grid[row][col-1] == 0:
-                    perimeter += 1
-                # Check RIGHT
-                if col == cols-1 or grid[row][col+1] == 0:
-                    perimeter += 1
-    return perimeter
+    p = 0
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            if (grid[i][j] == 1):
+                if (i <= 0 or grid[i - 1][j] == 0):
+                    p += 1
+                if (i >= len(grid) - 1 or grid[i + 1][j] == 0):
+                    p += 1
+                if (j <= 0 or grid[i][j - 1] == 0):
+                    p += 1
+                if (j >= len(grid[i]) - 1 or grid[i][j + 1] == 0):
+                    p += 1
+    return p

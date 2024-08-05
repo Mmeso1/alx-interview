@@ -2,8 +2,9 @@
 """ ALX Interview - Island perimeter
 """
 
-
 def island_perimter(grid):
+    """ Calculate the perimeter of an island
+    """
     rows, cols = len(grid), len(grid[0])
     perimeter = 0
 
